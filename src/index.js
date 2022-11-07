@@ -55,7 +55,7 @@ function check_if_file_is_valid(req, res, next){
 	return;
     }
     
-    fs.rename(req.file.path, req.file.path += ".txt", (err)=>{throw(`txt_to_url : ${err}`)});
+    //fs.rename(req.file.path, req.file.path += ".txt", (err)=>{throw(`txt_to_url : ${err}`)});
     
     console.log("text extention is valid")
     next()
