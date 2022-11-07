@@ -7,7 +7,7 @@ const upload = multer({ dest: 'dist/txt_to_url/uploads/' })
 
 const fs = require("fs");
 //const formidableMiddleware = require('express-formidable');
-const server_name = "http://lcalhost:9000/"//require("./server_name")
+const server_name = "https://lsconvert.netlify.app/"//require("./server_name")
 var path = require('path');
 
 
