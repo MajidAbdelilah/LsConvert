@@ -93,7 +93,7 @@ app.use("/.netlify/functions/index", txt_to_url)
 
 
 
-app.listen(9000)
+//app.listen(9000)
 
 
 module.exports.handler = serverless(app);
