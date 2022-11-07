@@ -3,7 +3,7 @@ console.log("Hello via lscovert!");
 const express = require("express")
 const serverless = require("serverless-http")
 const multer  = require('multer')
-const upload = multer({ dest: './dist/txt_to_url/uploads/' })
+const upload = multer({ dest: './' })
 
 const fs = require("fs");
 //const formidableMiddleware = require('express-formidable');
