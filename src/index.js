@@ -25,7 +25,7 @@ app.use(express.urlencoded())
 
 
 
-txt_to_url.post('/', upload.single("txt_file"), check_if_file_is_valid, function(req,res){
+txt_to_url.post('/', upload.single("txt_file"), /*check_if_file_is_valid,*/ function(req,res){
     
     //res.redirect( server_name+"get_txt_url.html?url="+req.file.path.replace("dist/", "")+"&server_name="+server_name);
 
