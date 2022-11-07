@@ -27,9 +27,9 @@ app.use(express.urlencoded())
 
 txt_to_url.post('/', upload.single("txt_file"), check_if_file_is_valid, function(req,res){
     
-    res.redirect(server_name+"get_txt_url.html?url="+req.file.path.replace("dist/", "")+"&server_name="+server_name);
+    res.redirect( server_name+"get_txt_url.html?url="+req.file.path.replace("dist/", "")+"&server_name="+server_name);
 
-    
+
     
     //res.json(req.files)
 });
@@ -44,18 +44,18 @@ function check_if_file_is_valid(req, res, next){
 	// is valid
 	
     }else{
-	fs.unlink(req.file.path, (err)=>{console.log(`txt_to_url : ${err}`)});
+	fs.unlink(req.file.path, (err)=>{throw(`txt_to_url : ${err}`)});
 	res.sendStatus(501);
 	return;
     }
 
     if(size > 200000){
-	fs.unlink(req.file.path, (err)=>{console.log(`txt_to_url : ${err}`)});
+	fs.unlink(req.file.path, (err)=>{throw(`txt_to_url : ${err}`)});
 	res.sendStatus(501);
 	return;
     }
     
-    fs.rename(req.file.path, req.file.path += ".txt", (err)=>{console.log(`txt_to_url : ${err}`)});
+    fs.rename(req.file.path, req.file.path += ".txt", (err)=>{throw(`txt_to_url : ${err}`)});
     
     console.log("text extention is valid")
     next()
