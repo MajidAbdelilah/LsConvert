@@ -1,8 +1,4 @@
-const fs = require("fs");
-const express = require("express")
-const formidableMiddleware = require('express-formidable');
-const server_name = require("./server_name")
-var path = require('path');
+
 
 const txt_to_url = express.Router()
 txt_to_url.use(express.urlencoded())
@@ -16,9 +12,9 @@ txt_to_url.use(formidableMiddleware({
 
 
 
-txt_to_url.post('/set_txt_url', check_if_file_is_valid, function(req,res){
+txt_to_url.post('/', check_if_file_is_valid, function(req,res){
 
-    res.redirect("/txt_to_url/get_txt_url?url="+req.files.txt_file.path+"&server_name="+server_name);
+    res.redirect("/txt_to_url/get_txt_url?url="+req.files.txt_file.path.replace("dist/", "")+"&server_name="+server_name);
 
     
     
@@ -30,8 +26,6 @@ txt_to_url.get('/get_txt_url', (req, res)=>{
     res.sendFile(path.resolve(__dirname + "/../dist/get_txt_url.html"), (err)=>{
 	console.log(err)
 
-	res.end()
-	return
 	//res.sendStatus(404);
     })
 })
@@ -63,10 +57,23 @@ function check_if_file_is_valid(req, res, next){
     next()
 }
 
-txt_to_url.get("/set_txt_url", (req, res) => {
+txt_to_url.get("/", (req, res) => {
     
     res.send("hello tere")
 })
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
