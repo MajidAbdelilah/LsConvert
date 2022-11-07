@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>lsConvert تم التحويل</title>
+	<meta name="description" content="">
+
+</head>
+<body> 
+
+<h1>تفضل رابطك</h1>
+<h2><a id="url" href=""></a></h2>
+
+
+<!-- 
+     <script src="jquery-3.6.1.min.js"></script> 
+     <script src="test.js"></script> 
+-->
+
+     <script>
+       let searchParams = new URLSearchParams(window.location.search)
+       searchParams.has('url')
+       let url = searchParams.get('url')
+       let server_name = searchParams.get('server_name')
+       
+       url.replace("dist/", "");
+       document.getElementById("url").href=server_name+url;
+       document.getElementById("url").textContent=server_name+url;
+       
+     </script>
+     
+</body>
+</html>
