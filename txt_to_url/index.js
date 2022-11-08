@@ -1,0 +1,68 @@
+// install express with `npm install express` 
+const express = require('express')
+const app = express()
+
+app.get('/', async (req, res) => res.send('GET OUT OF HERE!!!'))
+
+const multer  = require('multer')
+const upload = multer({ dest: '/tmp' })
+
+const fs = require("fs");
+//const formidableMiddleware = require('express-formidable');
+const server_name = "https://lsconvert.netlify.app/"//require("./server_name")
+var path = require('path');
+
+
+//const app = express()
+app.use(express.urlencoded({ extended: true }))
+
+
+
+app.get("/test", (req, res)=>{
+    console.log("test")
+    res.send("GET OUT OF HERE!!!")
+})
+
+app.post('/txt_to_url', upload.single("txt_file"), check_if_file_is_valid, function(req,res){
+    
+
+
+    res.redirect( server_name+"get_txt_url.html?url="+req.file.path.replace("dist/", "")+"&server_name="+server_name);
+
+    //res.send("test")
+    
+    //res.send(req.file);
+    
+    //res.json(req.files)
+});
+
+
+function check_if_file_is_valid(req, res, next){
+    //res.send(req.file)
+    let length = req.file.originalname.length;
+    let name = req.file.originalname;
+    let size = req.file.size;
+    if(name.charAt(length-1) == "t" && name.charAt(length-2) == "x" && name.charAt(length-3) == "t" && name.charAt(length-4) == "."){
+	// is valid
+	
+    }else{
+	fs.unlink(req.file.path, (err)=>{throw(`txt_to_url : ${err}`)});
+	res.sendStatus(501);
+	return;
+    }
+
+    if(size > 300000){
+	fs.unlink(req.file.path, (err)=>{throw(`txt_to_url : ${err}`)});
+	res.sendStatus(501);
+	return;
+    }
+    
+    fs.rename(req.file.path, req.file.path += ".txt", (err)=>{throw(`txt_to_url : ${err}`)});
+    
+    console.log("text file is valid")
+    next()
+}
+
+
+// export 'app'
+module.exports = app

@@ -1,9 +1,11 @@
-console.log("Hello via lscovert!");
+// install express with `npm install express` 
+const express = require('express')
+const app = express()
 
-const express = require("express")
-//const serverless = require("serverless-http")
+app.get('/', async (req, res) => res.send('Hello World!'))
+
 const multer  = require('multer')
-const upload = multer({ dest: '/tmpds' })
+const upload = multer({ dest: '/tmp' })
 
 const fs = require("fs");
 //const formidableMiddleware = require('express-formidable');
@@ -11,27 +13,23 @@ const server_name = "https://lsconvert.netlify.app/"//require("./server_name")
 var path = require('path');
 
 
-const app = express()
+//const app = express()
+app.use(express.urlencoded({ extended: true }))
 
 
 
+app.get("/test", (req, res)=>{
+    console.log("test")
+    res.send("hello majid")
+})
 
-const txt_to_url = express.Router()
-txt_to_url.use(express.urlencoded())
-
-app.use(express.urlencoded())
-
-
-
-
-
-txt_to_url.post('/', /* upload.single("txt_file"),*/ /*check_if_file_is_valid,*/ function(req,res){
+app.post('/test', upload.single("txt_file"), check_if_file_is_valid, function(req,res){
     
     //res.redirect( server_name+"get_txt_url.html?url="+req.file.path.replace("dist/", "")+"&server_name="+server_name);
 
-    res.send("test")
+    //res.send("test")
     
-    //res.send(req.file);
+    res.send(req.file);
     
     //res.json(req.files)
 });
@@ -51,7 +49,7 @@ function check_if_file_is_valid(req, res, next){
 	return;
     }
 
-    if(size > 200000){
+    if(size > 300000){
 	fs.unlink(req.file.path, (err)=>{throw(`txt_to_url : ${err}`)});
 	res.sendStatus(501);
 	return;
@@ -59,43 +57,10 @@ function check_if_file_is_valid(req, res, next){
     
     //fs.rename(req.file.path, req.file.path += ".txt", (err)=>{throw(`txt_to_url : ${err}`)});
     
-    console.log("text extention is valid")
+    console.log("text file is valid")
     next()
 }
 
-txt_to_url.get("/", (req, res) => {
-    
-    res.send("hello tere")
-})
 
-
-
-
-
-
-
-
-
-
-
-
-
-test = express.Router()
-
-
-
-test.get("/", (req, res)=>{
-    res.send("hello");
-})
-
-//const txt_to_url = require("./txt_to_url")
-app.use("/.netlify/functions/index", txt_to_url)
-
-
-
-
-
-//app.listen(9000)
-
-
-module.exports.handler = serverless(app);
+// export 'app'
+module.exports = app
