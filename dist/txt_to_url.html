@@ -1,21 +1,56 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="rtl">
 <head>
-	<title>lsConvert تحويل النص الى رابط</title>
+	<title>LsConvert تحويل النص الى رابط</title>
 	<meta name="description" content="">
 
+	
+  <link rel="stylesheet" href="style_1.css">
+	
 </head>
 <body>
-
-<h1>تحويل النص الى رابط</h1>
-<p>اختر النص الذي تريد تحويله الى رابط</p>
-
-<form action="https://rplmkg.deta.dev/test" enctype="multipart/form-data" method="post" id="myform">
+    
+  <nav id=services>
+    <div>
+      <p>الخدمات</p>
+      <ul id=services_dropdown>
+	<li><a href="./txt_to_url.html">تحويل النص الى رابط</a></li>
+      </ul>
+    </div>
+    <h1 class=inline_flex id=logo><a href=index.html>LsConvert</a></h1>
+    
+  </nav>
+  <div class=margin-top></div>
+  <div class="color-black margin-left-right">
+    
+    <form action="https://rplmkg.deta.dev/txt_to_url" enctype="multipart/form-data" method="post" id="form">
+    
+    <h1>تحويل النص الى رابط</h1>
+      
+      <label id=inputTag>اختر النص
 	<input id="video_file" accept=".txt" name="txt_file" type="file" />
-	<button class="btn btn-success" name="submit" type="submit"> Upload File </button>
-</form>
+</label>
+      <button class="btn btn-success" name="submit" type="submit">رفع</button>
 
-<!-- 
+      <span id="fileName"></span>
+      <p id=file_size_warnning class="red"></p>
+    </form>
+    
+  </div>
+  
+      
+    <div class=margin-top></div>
+    
+    <footer class=color-black>
+      <div>
+	<h2>الخدمات</h2>
+	<p><a href="./txt_to_url.html">تحويل النص الى رابط</a></p>
+      </div>
+      
+    </footer> 
+    <script  src="./txt_to_url.js">
+    </script>
+    <!-- 
      <script src="jquery-3.6.1.min.js"></script> 
      <script src="test.js"></script> 
 -->

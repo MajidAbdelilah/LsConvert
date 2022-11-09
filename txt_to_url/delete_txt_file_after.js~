@@ -1,0 +1,26 @@
+const express = require('express')
+const app = express()
+require('dotenv').config()
+const { Deta } = require("deta")
+const deta = Deta(process.env.h4nnln);
+const drive = deta.Drive("txt_to_url");
+const multer  = require('multer')
+const upload = multer({ dest: '/tmp' })
+
+
+
+// get all files
+let result = await drive.list();
+let allFiles = result.names;
+let last = result.paging.last;
+
+while (last){
+  // provide last from previous call
+  result = await drive.list({last:result.paging.last});
+
+  allFiles = allFiles.concat(result.names) 
+
+  // update last
+  last = result.paging.last
+}
+console.log("all files:", allFiles)
